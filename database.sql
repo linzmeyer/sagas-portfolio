@@ -19,5 +19,5 @@ INSERT INTO "tags" ("name")
 VALUES ('React'), ('jQuery'), ('Node'), ('SQL'), ('Redux'), ('HTML');
 
 -- test data for projects table
-INSERT INTO "projects" ("name"), ("description"), ("thumbnail"), ("website"), ("github"), ("date_completed"), ("tag_id")
+INSERT INTO "projects" ("name", "description", "thumbnail", "website", "github", "tag_id", "date_completed")
 VALUES ('redux-feedback-loop'), ('SPA form using Redux.'), ('thumbnail'), ('https://github.com/linzmeyer/redux-feedback-loop'), ('https://github.com/linzmeyer/redux-feedback-loop'), (5);
