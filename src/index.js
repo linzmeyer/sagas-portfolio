@@ -7,25 +7,29 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-// Import saga middleware
+
+// Saga setup
 import createSagaMiddleware from 'redux-saga';
+import { takeEvery, put } from 'redux-saga/effects';
+const sagaMiddleware = createSagaMiddleware();
 
-// Create the rootSaga generator function
-function* rootSaga() {
-
+// ------ WATCHER SAGA -------
+function* watcherSaga() {
 }
 
-// Create sagaMiddleware
-const sagaMiddleware = createSagaMiddleware();
+// ------ SAGAS -------
+
+
+// ------ REDUCERS -------
 
 // Used to store projects returned from the server
 const projects = (state = [], action) => {
-    switch (action.type) {
-        case 'SET_PROJECTS':
-            return action.payload;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'SET_PROJECTS':
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
 // Used to store the project tags (e.g. 'React', 'jQuery', 'Angular', 'Node.js')
@@ -48,9 +52,9 @@ const storeInstance = createStore(
     applyMiddleware(sagaMiddleware, logger),
 );
 
-// Pass rootSaga into our sagaMiddleware
-sagaMiddleware.run(rootSaga);
+// This tells the saga middleware to run the watcherSaga 
+// and start monitoring actions
+sagaMiddleware.run(watcherSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
-    document.getElementById('root'));
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
