@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 class AdminProjectItem extends Component {
 
-  // click handler DELETE request will remove a project from database
+  // click handler | action for saga | DELETE request
   deleteProject = () => {
     this.props.dispatch(
       { type: 'DELETE_PROJECT', payload: this.props.project.id }
