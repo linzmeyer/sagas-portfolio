@@ -24,3 +24,6 @@ VALUES ('redux-feedback-loop'), ('SPA form using Redux.'), ('thumbnail'), ('http
 
 INSERT INTO "projects" ("name", "description", "thumbnail", "website", "github", "tag_id")
 VALUES ('project name', 'something about the REACT project', 'thumbnail pic', 'site', 'github url', 1);
+
+-- Select all colums from "projects" table and sort them by "name"
+SELECT * FROM projects ORDER BY "name";
