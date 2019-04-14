@@ -50,7 +50,8 @@ class ProjectsList extends Component {
   }
 }
 
+// Need reduxState for access to projects reducer
 const mapReduxStateToProps = reduxState => ({ reduxState })
 
-// This uses withRouter for access to props.location.pathname.
+// Need withRouter for access to props.location.pathname.
 export default connect( mapReduxStateToProps )( withRouter( ProjectsList ));
