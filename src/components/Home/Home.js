@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Navbar from '../Navbar/Navbar';
+import Header from '../Header/Header';
 
-
+// Parent: <Route /> in <App />
 class Home extends Component {
 	render() {
     return (
       <div>
-        <h2>Hello Home</h2>
-        <Navbar />
+        <Header />
       </div>
     );
 	}
