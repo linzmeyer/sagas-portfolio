@@ -20,4 +20,5 @@ class AdminProjectItem extends Component {
   }
 }
 
+// need connect to use props.dispatch
 export default connect()( AdminProjectItem );
