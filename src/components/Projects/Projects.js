@@ -10,6 +10,7 @@ class Admin extends Component {
     return (
       <div>
         <Header />
+        <h2>Chase Linzmeyer</h2>
         <ProjectsList />
         <Navbar />
       </div>
