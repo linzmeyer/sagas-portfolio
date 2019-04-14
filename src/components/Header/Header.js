@@ -7,16 +7,15 @@ import { withRouter } from 'react-router-dom';
 
 class Header extends Component {
 
+	// 1. if current view is admin
+	// 2. if current view is home
+	// 3. if current view is projects
 	renderHeader = ( currentView ) => {
-			// if current view is admin
 			if (currentView === '/admin') {
 				return( <h1>ADMIN</h1> );
-			}
-			// if current view is home
-			else if (currentView === '/') {
+			} else if (currentView === '/') {
 				return( <h1>HOME</h1> );
-			} // if current view is projects
-			else if (currentView === '/projects') {
+			} else if (currentView === '/projects') {
 				return( <h1>PROJECTS</h1> );
 			}
 		}
