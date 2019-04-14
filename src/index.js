@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'; // allows us to us redux throughout app
@@ -7,26 +8,28 @@ import logger from 'redux-logger'; // middleware to track dispatches in console
 import axios from 'axios'; // allows us to make http requests
 import App from './components/App/App.js'; // import component to be wrapped by provider
 
+
 // Saga setup
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 const sagaMiddleware = createSagaMiddleware();
 
-// ------ WATCHER SAGA -------
+// ------ WATCHER SAGA ---------------------------------------------------------
 function* watcherSaga() {
   yield takeEvery( 'GET_ALL_PROJECTS', getProjectsList );
+  yield takeEvery( 'GET_ALL_TAGS', getTags );
   yield takeEvery( 'DELETE_PROJECT', deleteProject );
   yield takeEvery( 'ADD_PROJECT', addProject );
 }
 
-// ------ SAGAS -------
+// ------ SAGAS ----------------------------------------------------------------
 
-// GET
+// GET Projects List
 function* getProjectsList( action ) {
   console.log( 'Hit the getProjectsList saga', action );
   try {
     const getResponse = yield axios.get( '/projects' );
-    console.log( getResponse );
+    console.log( 'GET projects response:', getResponse );
     // reset action to match projects reducer | send list of projects
     action = { type: 'SET_PROJECTS', payload: getResponse.data };
     // dispatch action to projects reducer to update list of projects
@@ -35,6 +38,23 @@ function* getProjectsList( action ) {
   catch ( error ) {
     console.log( `Couldn't get projects`, error );
     alert( `Sorry, couldn't get the projects. Try again later` );
+  }
+}
+
+// GET Tags
+function* getTags( action ) {
+  console.log( 'Hit the getTags saga', action );
+  try {
+    const getResponse = yield axios.get( '/projects/tags' );
+    console.log( 'GET tags response:', getResponse );
+    // reset action to match tags reducer | send list of tags
+    action = { type: 'SET_TAGS', payload: getResponse.data };
+    // dispatch action to tags reducer to update list of tags
+    yield put( action );
+  }
+  catch ( error ) {
+    console.log( `Couldn't get tags`, error );
+    alert( `Sorry, couldn't get the tags. Try again later` );
   }
 }
 
@@ -73,7 +93,7 @@ function* deleteProject( action ) {
   }
 }
 
-// ------ REDUCERS -------
+// ------ REDUCERS -------------------------------------------------------------
 
 // all projects returned from the server
 const projects = ( state = [], action ) => {
