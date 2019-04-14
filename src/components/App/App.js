@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
-import './App.css';
-
 // import all components used in this component's render
 import Admin from '../Admin/Admin';
 import Home from '../Home/Home';
