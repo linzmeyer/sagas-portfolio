@@ -14,7 +14,9 @@ class AdminProjectItem extends Component {
     return (
 			<div>
 				<p>Poject Name:  { this.props.project.name }</p>
-        <button onClick={ this.deleteProject } >Delete</button>
+        <button className='btn btn-danger' onClick={ this.deleteProject } >
+          Delete
+        </button>
 			</div>
 		);
   }
