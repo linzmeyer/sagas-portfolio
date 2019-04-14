@@ -23,18 +23,17 @@ class ProjectsList extends Component {
         <div>
           { 
             this.props.reduxState.projects.map( project =>
-              <ProjectItem key={project.id} project={ project } />
+              <ProjectItem key={ project.id } project={ project } />
             )
           }
         </div>
       );
-    }
-    else if ( currentView === '/admin' ) {
+    } else if ( currentView === '/admin' ) {
       return (
         <div>
           { 
             this.props.reduxState.projects.map( project =>
-              <AdminProjectItem key={project.id} project={ project } />
+              <AdminProjectItem key={ project.id } project={ project } />
             )
           }
         </div>
@@ -45,7 +44,6 @@ class ProjectsList extends Component {
   render() {
     return (
       <div>
-        <h3>This is the Project list</h3>
         { this.renderProjects( this.props.location.pathname ) }
       </div>
     );
@@ -55,4 +53,4 @@ class ProjectsList extends Component {
 const mapReduxStateToProps = reduxState => ({ reduxState })
 
 // This uses withRouter for access to props.location.pathname.
-export default connect(mapReduxStateToProps)(withRouter( ProjectsList ));
+export default connect( mapReduxStateToProps )( withRouter( ProjectsList ));

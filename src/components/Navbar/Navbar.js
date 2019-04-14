@@ -13,20 +13,16 @@ class Navbar extends Component {
     // 2. if current view is home
     // 3. if current view is projects
   renderNavigation = ( currentView ) => {
-     // if current view is admin
-    if (currentView === '/admin') {
+    if ( currentView === '/admin' ) {
       return( <div><Link to="/" >Home</Link></div> );
-    }
-    // if current view is home
-    else if (currentView === '/') {
+    } else if ( currentView === '/' ) {
       return (
         <div>
           <Link to="/admin" >Admin</Link>
           <Link to="/projects" >projects</Link>
         </div>
       );
-    } // if current view is projects
-    else if (currentView === '/projects') {
+    } else if ( currentView === '/projects' ) {
       return ( <div><Link to="/" >Home</Link></div> );
     }
   }
@@ -35,9 +31,7 @@ class Navbar extends Component {
   // use props.location to render this navbar based on current location pathname
   render() {
     return (
-      <nav>
-        { this.renderNavigation( this.props.location.pathname ) }
-      </nav>
+      <nav> { this.renderNavigation( this.props.location.pathname ) } </nav>
     );
   }
 }
