@@ -6,7 +6,7 @@ import './App.css';
 // import all components used in this component's render
 import Admin from '../Admin/Admin';
 import Home from '../Home/Home';
-import ProjectsList from '../ProjectsList/ProjectsList';
+import Projects from '../Projects/Projects';
 
 class App extends Component {
 
@@ -17,7 +17,7 @@ class App extends Component {
       <Router>
       	<Route exact path='/admin' component={ Admin } />
 				<Route exact path='/' component={ Home } />
-				<Route exact path='/projects' component={ ProjectsList }/>
+				<Route exact path='/projects' component={ Projects }/>
       </Router>
     );
   }
