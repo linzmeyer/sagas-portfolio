@@ -8,27 +8,37 @@ import { HashRouter as Route, Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
-  // CONDITIONAL RENDER
+
+  // CONDITIONAL RENDER -- render a set of Links based on current view
     // 1. if current view is admin
     // 2. if current view is home
     // 3. if current view is projects
   renderNavigation = ( currentView ) => {
     if ( currentView === '/admin' ) {
-      return( <div><Link to="/" >Home</Link></div> );
+      return(
+        <div>
+          <Link to="/" >Home</Link>
+          <Link to="/projects" >Projects</Link>
+        </div>
+      );
     } else if ( currentView === '/' ) {
       return (
         <div>
           <Link to="/admin" >Admin</Link>
-          <Link to="/projects" >projects</Link>
+          <Link to="/projects" >Projects</Link>
         </div>
       );
     } else if ( currentView === '/projects' ) {
-      return ( <div><Link to="/" >Home</Link></div> );
+      return (
+        <div>
+          <Link to="/" >Home</Link>
+        </div>
+      );
     }
   }
 
   // use withRouter for props.location
-  // use props.location to render this navbar based on current location pathname
+  // use it to render this navbar based on current location pathname
   render() {
     return (
       <nav> { this.renderNavigation( this.props.location.pathname ) } </nav>
