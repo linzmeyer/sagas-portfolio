@@ -23,8 +23,6 @@ class ProjectsList extends Component {
   }
 }
 
-const mapReduxStateToProps = reduxState => ({
-  reduxState
-})
+const mapReduxStateToProps = reduxState => ({ reduxState })
 
 export default connect(mapReduxStateToProps)(ProjectsList);
