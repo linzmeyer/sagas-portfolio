@@ -4,7 +4,7 @@ const router = express.Router();
 
 // GET all projects from the database
 router.get('/', (req, res) => {
-  const queryText = 'SELECT * FROM projects';
+  const queryText = `SELECT * FROM projects ORDER BY "name";`;
   pool.query(queryText)
     .then((result) => { res.send(result.rows); })
     .catch((err) => {
@@ -13,10 +13,23 @@ router.get('/', (req, res) => {
     });
 }); // End GET
 
+// GET all tags from the database
+router.get('/tags', (req, res) => {
+  const queryText = `SELECT * FROM "tags";`;
+  pool.query(queryText)
+    .then((result) => { res.send(result.rows); })
+    .catch((err) => {
+      console.log('Error completing SELECT tags query', err);
+      res.sendStatus(500);
+    });
+}); // End GET
+
 // POST a project to the database
 router.post('/', (req, res) => {
+  // req.body should be a project object
   const newProject = req.body;
 
+  // database query should mask VALUES
   const queryText = 
     `INSERT INTO "projects" (
       "name",
@@ -31,6 +44,7 @@ router.post('/', (req, res) => {
     );`
   ;
   
+  // database query
   pool.query(
     queryText,
     [
