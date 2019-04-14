@@ -4,6 +4,6 @@
   "workbench.view.alwaysShowHeaderActions": true,
   "editor.hover.delay": 120,
   "editor.suggest.maxVisibleSuggestions": 3,
-  "editor.tabCompletion": "on",
-  "editor.renderLineHighlight": "gutter"
+  "editor.renderLineHighlight": "gutter",
+  "editor.tabCompletion": "on"
 }
