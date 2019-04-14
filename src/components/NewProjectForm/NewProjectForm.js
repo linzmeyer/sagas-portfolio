@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import validate from '../../DRY_Functions/validate';
+
 const emptyProject = {
   name: '',
   description: '',
@@ -15,6 +17,12 @@ class NewProjectForm extends Component {
 
   state = {
     newProject: emptyProject
+  }
+
+  componentDidMount() {
+    // Trigger saga to get tags... should set value for the tags reducer
+    // Use reduxState.tags.length for 'technology used' input max
+    this.props.dispatch( { type: 'GET_ALL_TAGS' } );
   }
   
   handleNameChange = propertyName => {
@@ -31,10 +39,20 @@ class NewProjectForm extends Component {
   // click handler | action for saga | POST request
   handleSubmit = event => {
     event.preventDefault();
+
+    console.log( 'validating:', this.state.newProject );
+		// User input validation (returns T/F value)
+    let isValidInput = validate( this.state.newProject );
+    // if input is not valid, exit handleSubmit
+		if ( isValidInput === false ) {
+			return;
+		}
+
     // dispact action for POST saga
     this.props.dispatch({ type: 'ADD_PROJECT', payload: this.state.newProject })
     // Reset the state to clear inputs
-    this.setState({ ...emptyProject })
+    this.setState({ newProject: emptyProject });
+    document.getElementById('in-1').focus();
   }
 
   render() {
@@ -46,6 +64,7 @@ class NewProjectForm extends Component {
 
           <label>Project Name:</label>
           <input
+            id="in-1"
             type="text"
             value={ this.state.newProject.name }
             onChange={ this.handleNameChange( 'name' ) }
@@ -60,7 +79,7 @@ class NewProjectForm extends Component {
           />
           <br />
 
-          <label>Name:</label>
+          <label>Thumbnail:</label>
           <input
             type="text"
             value={ this.state.newProject.thumbnail }
@@ -68,7 +87,7 @@ class NewProjectForm extends Component {
           />
           <br />
 
-          <label>Name:</label> 
+          <label>Website:</label> 
           <input
             type="text"
             value={ this.state.newProject.website }
@@ -84,7 +103,7 @@ class NewProjectForm extends Component {
           />
           <br />
  
-          <label>Name:</label>
+          <label>GitHub:</label>
           <input
             type="text"
             value={ this.state.newProject.date_completed }
@@ -92,14 +111,17 @@ class NewProjectForm extends Component {
           />
           <br />
 
-          <label>Name:</label>
+          <label>Technology Used:</label>
           <input
-            type="text"
+            type="number" min="1" max={this.props.reduxState.tags.length}
             value={ this.state.newProject.tag_id }
             onChange={ this.handleNameChange( 'tag_id' ) }
           />
+          <br />
 
-          <button type="submit" >Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
 
         </form>
       </div>
@@ -107,4 +129,8 @@ class NewProjectForm extends Component {
   }
 }
 
-export default connect()( NewProjectForm );
+// Need reduxState for access to tags reducer
+const mapReduxStateToProps = reduxState => ({ reduxState })
+
+// need connect to use props.dispatch
+export default connect( mapReduxStateToProps )( NewProjectForm );
