@@ -28,8 +28,9 @@ function* getProjectsList( action ) {
   try {
     const getResponse = yield axios.get('/projects');
     console.log(getResponse);
-    const action = { type: 'SET_PROJECTS', payload: getResponse.data };
-    // Dispatch an action to our reducers to update our redux store
+    // reset action to match projects reducer | send list of projects
+    action = { type: 'SET_PROJECTS', payload: getResponse.data };
+    // dispatch action to projects reducer to update list of projects
     yield put( action );
   }
   catch (error) {
@@ -46,8 +47,9 @@ function* deleteProject( action ) {
   console.log('action.payload:', action.payload);
   try {
     yield axios.delete(`/projects/${action.payload}`)
-    // reassign saga action to reducer action
-    action = { type: 'GET_PLANTS' };
+    // reassign deleteProject saga action to match getProjectsList action.type
+    action = { type: 'GET_ALL_PROJECTS' };
+    // dispatch action to getProjectsList saga
     yield put( action );
   } catch (error) {
     console.log(`Couldn't delete plant`, error);
@@ -65,7 +67,7 @@ const projects = ( state = [], action ) => {
   return state;
 }
 
-// the project tags (e.g. 'React', 'jQuery', 'Angular', 'Node.js')
+// all project tags (e.g. 'React', 'jQuery', 'Angular', 'Node.js')
 const tags = ( state = [], action ) => {
   if (action.type === 'SET_TAGS') {
     return action.payload;
@@ -87,5 +89,11 @@ const storeInstance = createStore(
 // and start monitoring actions
 sagaMiddleware.run(watcherSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
+// Wrap entire app in provider and append to 'root' in html
+ReactDOM.render(
+  <Provider store={storeInstance}>
+    <App />
+  </Provider>, document.getElementById('root')
+);
+
 registerServiceWorker();
