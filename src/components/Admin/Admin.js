@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Navbar from '../Navbar/Navbar';
 
 class Admin extends Component {
 	render() {
     return (
-      <h2>Hello Admin</h2>
+      <div>
+        <h2>Hello Admin</h2>
+        <Navbar />
+      </div>
     );
 	}
 }
 
-export default( Admin );
+const mapReduxStateToProps = reduxState => ({ reduxState })
+
+// This uses connect for redux and withRouter for react routing.
+export default connect( mapReduxStateToProps )( Admin );
