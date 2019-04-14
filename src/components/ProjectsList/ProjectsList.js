@@ -7,7 +7,7 @@ import AdminProjectItem from '../AdminProjectItem/AdminProjectItem';
 // need this to access this.props.location for conditional rendering
 import { withRouter } from 'react-router-dom';
 
-
+// Parents: Admin | Projects
 class ProjectsList extends Component {
   componentDidMount() {
     // Trigger saga to get projects... should set value for the projects reducer

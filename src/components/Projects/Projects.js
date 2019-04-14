@@ -5,10 +5,10 @@ import Navbar from '../Navbar/Navbar';
 import ProjectsList from '../ProjectsList/ProjectsList';
 
 // Parent: <Route /> in <App />
-class Admin extends Component {
+class Projects extends Component {
 	render() {
     return (
-      <div>
+      <div className="Projects" >
         <Header />
         <h2>Chase Linzmeyer</h2>
         <ProjectsList />
@@ -18,4 +18,4 @@ class Admin extends Component {
 	}
 }
 
-export default( Admin );
+export default( Projects );

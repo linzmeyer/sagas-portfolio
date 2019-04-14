@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'; // bootstrap styling
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'; // allows us to us redux throughout app
@@ -8,6 +8,8 @@ import logger from 'redux-logger'; // middleware to track dispatches in console
 import axios from 'axios'; // allows us to make http requests
 import App from './components/App/App.js'; // import component to be wrapped by provider
 
+// import style
+import './index.css';
 
 // Saga setup
 import createSagaMiddleware from 'redux-saga';
