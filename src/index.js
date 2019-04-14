@@ -16,42 +16,60 @@ const sagaMiddleware = createSagaMiddleware();
 function* watcherSaga() {
   yield takeEvery( 'GET_ALL_PROJECTS', getProjectsList );
   yield takeEvery( 'DELETE_PROJECT', deleteProject );
+  yield takeEvery( 'ADD_PROJECT', addProject );
 }
 
 // ------ SAGAS -------
 
 // GET
 function* getProjectsList( action ) {
-  console.log('Hit the getProjectsList saga', action);
+  console.log( 'Hit the getProjectsList saga', action );
   try {
-    const getResponse = yield axios.get('/projects');
-    console.log(getResponse);
+    const getResponse = yield axios.get( '/projects' );
+    console.log( getResponse );
     // reset action to match projects reducer | send list of projects
     action = { type: 'SET_PROJECTS', payload: getResponse.data };
     // dispatch action to projects reducer to update list of projects
     yield put( action );
   }
-  catch (error) {
-    console.log(`Couldn't get projects`, error);
-    alert(`Sorry, couldn't get the projects. Try again later`);
+  catch ( error ) {
+    console.log( `Couldn't get projects`, error );
+    alert( `Sorry, couldn't get the projects. Try again later` );
+  }
+}
+
+// POST
+function* addProject( action ) {
+  // action.payload should be a project object
+  console.log( 'Hit the addProject saga', action );
+  try {
+    yield axios.post( '/projects', action.payload )
+    // reassign addProject saga action to match getProjectsList action.type
+    action = { type: 'GET_ALL_PROJECTS' };
+    // dispatch action to getProjectsList saga
+    yield put( action );
+  }
+  catch ( error ) {
+    console.log( `Couldn't add projects`, error );
+    alert( `Sorry, couldn't add the projects. Try again later` );
   }
 }
 
 // DELETE
 function* deleteProject( action ) {
-  // action.payload should be an number that represents a project id
+  // action.payload should be a number that represents a project id
   // that matches a project id in the database
-  console.log('hit the DELETE project saga', action);
-  console.log('action.payload:', action.payload);
+  console.log( 'hit the deleteProject saga', action );
+  console.log( 'action.payload:', action.payload );
   try {
-    yield axios.delete(`/projects/${action.payload}`)
+    yield axios.delete( `/projects/${ action.payload }` )
     // reassign deleteProject saga action to match getProjectsList action.type
     action = { type: 'GET_ALL_PROJECTS' };
     // dispatch action to getProjectsList saga
     yield put( action );
-  } catch (error) {
-    console.log(`Couldn't delete plant`, error);
-    alert(`Sorry, couldn't delete the plant. Try again later`);
+  } catch ( error ) {
+    console.log( `Couldn't delete plant`, error );
+    alert( `Sorry, couldn't delete the plant. Try again later` );
   }
 }
 
@@ -59,7 +77,7 @@ function* deleteProject( action ) {
 
 // all projects returned from the server
 const projects = ( state = [], action ) => {
-  if (action.type === 'SET_PROJECTS') {
+  if ( action.type === 'SET_PROJECTS' ) {
     return action.payload;
   }
   return state;
@@ -67,7 +85,7 @@ const projects = ( state = [], action ) => {
 
 // all project tags (e.g. 'React', 'jQuery', 'Angular', 'Node.js')
 const tags = ( state = [], action ) => {
-  if (action.type === 'SET_TAGS') {
+  if ( action.type === 'SET_TAGS' ) {
     return action.payload;
   }
   return state;
@@ -85,13 +103,13 @@ const storeInstance = createStore(
 
 // This tells the saga middleware to run the watcherSaga 
 // and start monitoring actions
-sagaMiddleware.run(watcherSaga);
+sagaMiddleware.run( watcherSaga );
 
 // Wrap entire App component in provider and append to 'root' in html
 ReactDOM.render(
-  <Provider store={storeInstance}>
+  <Provider store={ storeInstance }>
     <App />
-  </Provider>, document.getElementById('root')
+  </Provider>, document.getElementById( 'root' )
 );
 
 registerServiceWorker();
