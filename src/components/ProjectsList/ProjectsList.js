@@ -1,23 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import ProjectItem from '../ProjectItem/ProjectItem';
+import AdminProjectItem from '../AdminProjectItem/AdminProjectItem';
+
+// need this to access this.props.location for conditional rendering
+import { withRouter } from 'react-router-dom';
+
 
 class ProjectsList extends Component {
   componentDidMount() {
-    // Try to trigger our saga to get projects... should set our reducer (projects)
+    // Trigger saga to get projects... should set value for the projects reducer
     this.props.dispatch( { type: 'GET_ALL_PROJECTS' } );
+  }
+
+  // CONDITIONAL RENDER
+    // 1. if current view is /project, render all projects' info on cards
+    // 2. if current view is /admin, render name and delete button in cards
+  renderProjects = ( currentView ) => {
+    if ( currentView === '/projects' ) {
+      return (
+        <div>
+          { 
+            this.props.reduxState.projects.map( project =>
+              <ProjectItem key={project.id} project={ project } />
+            )
+          }
+        </div>
+      );
+    }
+    else if ( currentView === '/admin' ) {
+      return (
+        <div>
+          { 
+            this.props.reduxState.projects.map( project =>
+              <AdminProjectItem key={project.id} project={ project } />
+            )
+          }
+        </div>
+      );
+    }
   }
 
   render() {
     return (
       <div>
         <h3>This is the Project list</h3>
-        <pre>{JSON.stringify(this.props.reduxState.projects)}</pre>
-          { 
-            this.props.reduxState.projects.map( project =>
-              <ProjectItem key={project.id} project={project} />
-            )
-          }
+        { this.renderProjects( this.props.location.pathname ) }
       </div>
     );
   }
@@ -25,4 +54,5 @@ class ProjectsList extends Component {
 
 const mapReduxStateToProps = reduxState => ({ reduxState })
 
-export default connect(mapReduxStateToProps)(ProjectsList);
+// This uses withRouter for access to props.location.pathname.
+export default connect(mapReduxStateToProps)(withRouter( ProjectsList ));
