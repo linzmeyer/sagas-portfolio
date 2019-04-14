@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-// Provider allows us to use redux within our react app
-import { Provider } from 'react-redux';
-import logger from 'redux-logger';
-import axios from 'axios';
+import { Provider } from 'react-redux'; // allows us to us redux throughout app
+import logger from 'redux-logger'; // middleware to track dispatches in console
+import axios from 'axios'; // allows us to make http requests
+import App from './components/App/App.js'; // import component to be wrapped by provider
 
 // Saga setup
 import createSagaMiddleware from 'redux-saga';
@@ -89,7 +87,7 @@ const storeInstance = createStore(
 // and start monitoring actions
 sagaMiddleware.run(watcherSaga);
 
-// Wrap entire app in provider and append to 'root' in html
+// Wrap entire App component in provider and append to 'root' in html
 ReactDOM.render(
   <Provider store={storeInstance}>
     <App />
