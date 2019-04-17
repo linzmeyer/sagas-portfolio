@@ -56,7 +56,6 @@ class NewProjectForm extends Component {
   }
 
   renderAddProjectForm = () => {
-    console.log(this.props);
     return (
       <form onSubmit={ this.handleSubmit }>
 
@@ -131,8 +130,8 @@ class NewProjectForm extends Component {
   render() {
     return (
       <div>
+        {/* <pre>{ JSON.stringify( this.state ) }</pre> */}
         <h3>Add a Project:</h3>
-        <pre>{ JSON.stringify( this.state ) }</pre>
         { this.renderAddProjectForm() }
       </div>
     );

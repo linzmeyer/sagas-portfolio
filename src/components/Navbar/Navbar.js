@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import './Navbar.css';
 // I could not get Link to work w/out importing Route too. But Route causes an
 // annoying warning in the console because I'm not using it in this file.
 
@@ -17,21 +18,21 @@ class Navbar extends Component {
     if ( currentView === '/admin' ) {
       return(
         <div>
-          <Link to="/" >Home</Link>
-          <Link to="/projects" >Projects</Link>
+          <Link to="/" className="link">Home</Link>
+          <Link to="/projects" className="link" >Projects</Link>
         </div>
       );
     } else if ( currentView === '/' ) {
       return (
         <div>
-          <Link to="/admin" >Admin</Link>
-          <Link to="/projects" >Projects</Link>
+          <Link to="/admin" className="link" >Admin</Link>
+          <Link to="/projects" className="link" >Projects</Link>
         </div>
       );
     } else if ( currentView === '/projects' ) {
       return (
         <div>
-          <Link to="/" >Home</Link>
+          <Link to="/" className="link" >Home</Link>
         </div>
       );
     }
@@ -41,7 +42,9 @@ class Navbar extends Component {
   // use it to render this navbar based on current location pathname
   render() {
     return (
-      <nav> { this.renderNavigation( this.props.location.pathname ) } </nav>
+      <nav className="Navbar">
+        { this.renderNavigation( this.props.location.pathname ) }
+      </nav>
     );
   }
 }

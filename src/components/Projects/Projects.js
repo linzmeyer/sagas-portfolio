@@ -8,7 +8,7 @@ import ProjectsList from '../ProjectsList/ProjectsList';
 class Projects extends Component {
 	render() {
     return (
-      <div className="Projects" >
+      <div>
         <Header />
         <h2>Chase Linzmeyer</h2>
         <ProjectsList />

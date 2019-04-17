@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './AdminProjectItem.css';
 
 class AdminProjectItem extends Component {
 
@@ -12,8 +13,8 @@ class AdminProjectItem extends Component {
   
   render () {
     return (
-			<div>
-				<p>Poject Name:  { this.props.project.name }</p>
+			<div className="card">
+				<h5>{ this.props.project.name }</h5>
         <button className='btn btn-danger' onClick={ this.deleteProject } >
           Delete
         </button>
